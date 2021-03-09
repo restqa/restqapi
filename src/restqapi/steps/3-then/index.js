@@ -325,7 +325,7 @@ module.exports = [
    *
    * @function bodyListContainNumberOfItem
    */
-  ['the response list should contain {int} item', then.shouldBeArraySize, 'Check if the response list is of a certain size', 'api, response, body, jsonpath, dot-object, array-body'],
+  ['the response list should contain {int} items', then.shouldBeArraySize, 'Check if the response list is of a certain size', 'api, response, body, jsonpath, dot-object, array-body'],
 
   /**
    * ### Then the response body should be equal to:
