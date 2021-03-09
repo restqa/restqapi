@@ -417,6 +417,7 @@ By adding the cookie into the jar the following request will contains the cookie
         * [~notEmptyArray()](#module_Then..notEmptyArray)
         * [~emptyResponse()](#module_Then..emptyResponse)
         * [~bodyPropertyEqual()](#module_Then..bodyPropertyEqual)
+        * [~bodyPropertyJson()](#module_Then..bodyPropertyJson)
         * [~bodyPropertyEqualTrue()](#module_Then..bodyPropertyEqualTrue)
         * [~bodyPropertyEqualFalse()](#module_Then..bodyPropertyEqualFalse)
         * [~bodyPropertyEqualNull()](#module_Then..bodyPropertyEqualNull)
@@ -593,6 +594,21 @@ Then the response body at "user.lastname" should equal {{ lastname }}
 Then the response body at "$.id" should equal 10
 Then the response body at "$.user.firstname" should equal "john"
 Then the response body at "$.user.lastname" should equal {{ lastname }}
+```
+<a name="module_Then..bodyPropertyJson"></a>
+### Then the response body at {string} should be equal to:
+Verify a specific property from the response body against a JSON object
+
+**Category**: JSON Response body  
+**Example**  
+```js
+Then the response body at "$.person" should be equal to:
+"""
+  {
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+"""
 ```
 <a name="module_Then..bodyPropertyEqualTrue"></a>
 ### Then the response body at {string} should equal true
