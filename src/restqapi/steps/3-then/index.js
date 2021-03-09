@@ -170,6 +170,26 @@ module.exports = [
   ['the response body at {string} should equal {string}', then.shouldBeString, 'Check a value in the body response as a string (dot-object pattern)', 'api, response, body, jsonpath, dot-object, string'],
   ['the response body at {string} should equal {int}', then.shouldBeNumber, 'Check a value in the body response as a int (dot-object pattern)', 'api, response, body, jsonpath, dot-object, number'],
 
+
+  /**
+   * ### Then the response body at {string} should be equal to:
+   * Verify a specific property from the response body against a JSON object
+   *
+   * @category JSON Response body
+   *
+   * @example 
+   * Then the response body at "$.person" should be equal to:
+   * """
+   *   {
+   *     "firstName": "John",
+   *     "lastName": "Doe"
+   *   }
+   * """
+   *
+   * @function bodyPropertyJson
+   */
+  ['the response body at {string} should equal:', then.shouldBePropertyJson, 'Check a value in the body response as a json (dot-object or jsonpath pattern)', 'api, response, body, jsonpath, dot-object, json'],
+
   /**
    * ### Then the response body at {string} should equal true
    * Ensure a JSON response body equals a given boolean value as true

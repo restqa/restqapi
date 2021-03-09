@@ -7,7 +7,7 @@ describe('#StepDefinition - then - functions', () => {
   test('Configuration', () => {
     const Then = require('./functions')
     const fns = Object.keys(Then)
-    expect(fns.length).toBe(28)
+    expect(fns.length).toBe(29)
     const expectedFunctions = [
       'httpCode',
       'httpTiming',
@@ -31,6 +31,7 @@ describe('#StepDefinition - then - functions', () => {
       'shouldMatch',
       'shouldBeNow',
       'shouldBeJsonBody',
+      'shouldBePropertyJson',
       'addHeaderPropertyToDataset',
       'addBodyPropertyToDataset',
       'cookieJar',
@@ -840,6 +841,78 @@ describe('#StepDefinition - then - functions', () => {
         expect(() => {
           Then.shouldBeJsonBody.call($this, json)
         }).toThrow(`[POST /users] The response body should be '${JSON.stringify({foo: 'bar'})}', but received : '${JSON.stringify({f00: 'b@r'})}`)
+      })
+    })
+
+    describe('shouldBePropertyJson', () => {
+      const Response = require('../../lib/api/response')
+      test('Should be equal', () => {
+        jest.unmock('assert')
+        const $this = {
+          data: {
+            get: _ => _
+          },
+          api: {
+            response: new Response({
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: {
+                person: {
+                  firstName: 'john',
+                  lastName: 'doe',
+                }
+              },
+              request: {
+                prefix: '[POST /users]'
+              }
+            }),
+          }
+        }
+
+        const json = `
+          {
+            "firstName": "john",
+            "lastName": "doe"
+          }
+        `
+
+        const Then = require('./functions')
+        Then.shouldBePropertyJson.call($this, '$.person', json)
+      })
+
+      test('Shouldn\'t be equal', () => {
+        const $this = {
+          data: {
+            get: _ => _
+          },
+          api: {
+            response: new Response({
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: {
+                person: {
+                  firstName: 'john'
+                }
+              },
+              request: {
+                prefix: '[POST /users]'
+              }
+            }),
+          }
+        }
+
+        const json = `
+          {
+            "foo": "bar"
+          }
+        `
+
+        const Then = require('./functions')
+        expect(() => {
+          Then.shouldBePropertyJson.call($this, '$.person', json)
+        }).toThrow(`[POST /users] The response body at "$.person" should be '${JSON.stringify({foo: 'bar'})}', but received : '${JSON.stringify({firstName: 'john'})}`)
       })
     })
 

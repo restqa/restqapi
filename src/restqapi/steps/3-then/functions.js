@@ -168,6 +168,14 @@ Then.shouldBeJsonBody = function (value) {
   assert.deepStrictEqual(body, value, err)
 }
 
+Then.shouldBePropertyJson = function (property, value) {
+  value = this.data.get(value)
+  value = JSON.parse(value)
+  const received = this.api.response.findInBody(property)
+  const err = `${this.api.response.request.prefix} The response body at "${property}" should be '${JSON.stringify(value)}', but received : '${JSON.stringify(received)}`
+  assert.deepStrictEqual(received, value, err)
+}
+
 /*
  * =========================================
  * Response API DataSet Functions
