@@ -97,8 +97,36 @@ key | option type / notes | required | example
 `data.channel` | string <br /> google-sheet / csv / confluence (more info on the [restqdata library](https://github.com/restqa/restqdata)) | false | `csv`
 `data.config` | object <br/> The config will depend on the given channel check the [available options](https://github.com/restqa/restqdata#options) | true (if channel is defined) | `{ folder: 'data'}`
 `data.startSymbol` | string | false <br /> (default: `{{`) | `{[`
-`data.endSymbol` | string | false <br /> (default: `}}`) |  `{{`
+`data.endSymbol` | string | false <br /> (default: `}}`) |  `]}`
+`data.storage` | string <br /> Location of your files on the file system | false <br /> (default: `/tmp`) |  `./data`
 `secrets` | Object <br /> List of secret variable you will want to access within our scenario (ex: apikey, token, etc...) | false |  `{ apikey : 'xxx-yyy-zzz'}`
+
+
+#### Working file 
+
+If you are using step definition that require to use file from your file system, you will need to specify first the location of the files into the configuration.
+Example:
+
+* Your project is located into the folder `/user/john/tests`
+* In order to upload the file `data/avatar.png`
+
+You will need to specify the options as following :
+
+```
+# /user/john/tests/setup.js
+
+const config = {
+  name: 'local',
+  url: 'http://host.docker.internal:8080',
+  insecure: true, // ignore ssl validation
+  data: {
+    storage: './data'
+  }
+}
+```
+
+Then you can use the step definition as : `Given I add the form value "file" as a file stored at "avatar.png"`
+
 
 #### Working with external datasets
 

@@ -389,6 +389,24 @@ module.exports = [
    */
   ['the payload:', given.jsonPayload, 'Add a JSON request body included in the Gherkin doc strings', 'request, body, dot, jsonbody, generator'],
 
+  /**
+   * ### Given the payload from a file stored at {string}
+   * Add a JSON request body from a json file
+   * Do not forget to specify the `data.storage` option into your configuration to specify the file location
+   *
+   * @category JSON Request body
+   *
+   * @example
+   * Given the payload from a file stored at "my-body.json" 
+   *
+   * @example <caption>Placeholder from datasets</caption>
+   * Given the payload from a file stored at {{ filename }}
+   *
+   * @function jsonFilePayload
+   */
+  ['the payload from a file stored at {string}', given.jsonFilePayload, 'Add a JSON request body from a json file', 'request, body, dot, file, jsonbody'],
+  ['the payload from a file stored at {data}', given.jsonFilePayload, 'Add a JSON request body from a json file (placeholder)', 'request, body, dot, file, jsonbody'],
+
   //  ****************************************************************************************************
   //  FORM REQUEST BODY
   //  ****************************************************************************************************
@@ -429,6 +447,7 @@ module.exports = [
   /**
    * ### Given I add the form value {string} as a file stored at {string | placeholder | data}
    * Set one or more request form body
+   * Do not forget to specify the `data.storage` option into your configuration to specify the file location
    *
    * @category Form Request body
    *

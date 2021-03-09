@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 
 const Given = {}
 
@@ -142,6 +143,22 @@ Given.jsonPayload = function (value) {
   value = this.data.get(value)
   value = JSON.parse(value)
   this.api.request.setPayload(value)
+}
+
+Given.jsonFilePayload = function(filename) {
+  if ('.json' !== path.extname(filename)) {
+    throw new Error(`The file "${filename}" should be a .json file`)
+  }
+
+  filepath = this.data.get(filename)
+  filepath = this.data.getFile(filepath)
+  let content = fs.readFileSync(filepath).toString('utf-8')
+  try {
+    content = JSON.parse(content)
+  } catch (e) {
+    throw new Error(`The file "${filename}" doesn't contain a valid JSON`)
+  }
+  this.api.request.setPayload(content)
 }
 
 Given.form = function (field, value) {

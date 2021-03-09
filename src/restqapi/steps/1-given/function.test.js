@@ -4,10 +4,21 @@ beforeEach(() => {
 
 describe('#StepDefinition - given - functions', () => {
   const Given = require('./functions')
+  const os = require('os')
+  const fs = require('fs')
+  const path = require('path')
+
+  let filename 
+
+  beforeEach(() => {
+    if (filename && fs.existsSync(filename)) {
+      fs.unlinkSync(filename)
+    }
+  })
 
   test('Configuration', () => {
     const fns = Object.keys(Given)
-    expect(fns.length).toBe(22)
+    expect(fns.length).toBe(23)
     const expectedFunctions = [
       'gateway',
       'gatewayHost',
@@ -28,6 +39,7 @@ describe('#StepDefinition - given - functions', () => {
       'payloadEmptyArray',
       'payloads',
       'jsonPayload',
+      'jsonFilePayload',
       'form',
       'forms',
       'formUpload'
@@ -576,6 +588,75 @@ describe('#StepDefinition - given - functions', () => {
       expect($this.api.request.setPayload.mock.calls.length).toBe(1)
       expect($this.api.request.setPayload.mock.calls[0][0]).toEqual(JSON.parse(json))
       expect($this.data.get.mock.calls.length).toBe(1)
+    })
+
+    describe('jsonFilePayload', () => {
+
+      test('Throw error if the filename doesn\'t have a "json" exentions', () => {
+
+        const $this = {
+          api: {
+            request: {
+              setPayload: jest.fn()
+            }
+          },
+          data: {
+            get: jest.fn(_ => _),
+          }
+        }
+
+        expect(() => {
+          Given.jsonFilePayload.call($this, 'body.txt')
+        }).toThrow(new Error('The file "body.txt" should be a .json file'))
+      })
+
+      test('Throw error when the file doesn\'t contain a valid json content', () => {
+
+        filename = path.resolve(os.tmpdir(), 'body.json')
+        fs.writeFileSync(filename, 'invalid body')
+
+        const $this = {
+          api: {
+            request: {
+              setPayload: jest.fn()
+            }
+          },
+          data: {
+            get: jest.fn(_ => _),
+            getFile: jest.fn().mockReturnValue(filename)
+          }
+        }
+
+        expect(() => {
+          Given.jsonFilePayload.call($this, 'body.json')
+        }).toThrow(new Error('The file "body.json" doesn\'t contain a valid JSON'))
+      })
+
+      test('Load the payload as a json file', () => {
+
+        const json = {
+          foo: 'bar'
+        }
+        filename = path.resolve(os.tmpdir(), 'body.json')
+        fs.writeFileSync(filename, JSON.stringify(json))
+
+        const $this = {
+          api: {
+            request: {
+              setPayload: jest.fn()
+            }
+          },
+          data: {
+            get: jest.fn(_ => _),
+            getFile: jest.fn().mockReturnValue(filename)
+          }
+        }
+        Given.jsonFilePayload.call($this, 'body.json')
+        expect($this.api.request.setPayload.mock.calls.length).toBe(1)
+        expect($this.api.request.setPayload.mock.calls[0][0]).toEqual(json)
+        expect($this.data.get.mock.calls.length).toBe(1)
+        expect($this.data.getFile.mock.calls.length).toBe(1)
+      })
     })
   })
 

@@ -39,6 +39,7 @@ All the steps related to the API Request
         * [~JsonPayloadEmptyArray()](#module_Given..JsonPayloadEmptyArray)
         * [~JsonPayloadTable()](#module_Given..JsonPayloadTable)
         * [~jsonPayload()](#module_Given..jsonPayload)
+        * [~jsonFilePayload()](#module_Given..jsonFilePayload)
     * _Method_
         * [~method()](#module_Given..method)
         * [~methodPath()](#module_Given..methodPath)
@@ -110,6 +111,7 @@ Given I add the form value "list.name" as {{ name }}
 <a name="module_Given..FormBody"></a>
 ### Given I add the form value {string} as a file stored at {string | placeholder | data}
 Set one or more request form body
+Do not forget to specify the `data.storage` option into your configuration to specify the file location
 
 **Category**: Form Request body  
 **Example** *(string)*  
@@ -307,6 +309,20 @@ Given the payload:
     "lastname": "{{ lastName }}"
 }
 """
+```
+<a name="module_Given..jsonFilePayload"></a>
+### Given the payload from a file stored at {string}
+Add a JSON request body from a json file
+Do not forget to specify the `data.storage` option into your configuration to specify the file location
+
+**Category**: JSON Request body  
+**Example**  
+```js
+Given the payload from a file stored at "my-body.json" 
+```
+**Example** *(Placeholder from datasets)*  
+```js
+Given the payload from a file stored at {{ filename }}
 ```
 <a name="module_Given..method"></a>
 ### Given I have the method {string}
