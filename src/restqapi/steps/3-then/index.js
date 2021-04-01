@@ -388,7 +388,7 @@ module.exports = [
 
   /**
    * ### Then the response body at {string} should be greater than {int}
-   * Verify if a specific value from the response body is greater than an expected value
+   * Verify if a specific value from the response body is greater than the expected value
    *
    * @category Sort Numeric
    *
@@ -453,6 +453,70 @@ module.exports = [
    */
   ['the response body at {string} should be less than or equal to {int}', then.shouldBeLessThanOrEqualTo, 'Check if a value in the response body is less than or equal to an expected value', 'api, response, body, jsonpath, dot-object, number, numeric'],
   ['the response body at {string} should be less than or equal to {data}', then.shouldBeLessThanOrEqualTo, 'Check if a value in the response body is less than or equal to an expected value (placeholder)', 'api, response, body, jsonpath, dot-object, number, numeric'],
+
+  /**
+   * ### Then the response body at {string} should be a date before {string}
+   * Verify and compare if a specific date from the response body comes before the expected date
+   * The expected date should follow the pattern 'YYYY/MM/DD' (reference: RFC2822)
+   *
+   * @category Date
+   *
+   * @example
+   * Then the response body at "$.createdAt" should be a date before "2020/12/01"
+   * Then the response body at "$.createdAt" should be a date before "2020/12/01 23:30:00"
+   *
+   * @example <caption>Placeholder from datasets</caption>
+   * Then the response body at "$.createdAt" should be a date before {{ my-date }}
+   *
+   * @function DateBefore
+   */
+  ['the response body at {string} should be a date before {string}', then.shouldBeDateBefore, 'Check if a date from the response body is before the expected date', 'api, response, body, jsonpath, dot-object, date'],
+  ['the response body at {string} should be a date before {date}', then.shouldBeDateBefore, 'Check if a date from the response body is before the expected date (placeholder)', 'api, response, body, jsonpath, dot-object, date'],
+
+  /**
+   * ### Then the response body at {string} should be a date before today
+   * Verify and compare if a specific date from the response body is comes before the current day
+   *
+   * @category Date
+   *
+   * @example
+   * Then the response body at "$.createdAt" should be a date before today
+   *
+   * @function DateBeforeToday
+   */
+  ['the response body at {string} should be a date before today', then.shouldBeDateBeforeToday, 'Check if a date from the response body is before the current day', 'api, response, body, jsonpath, dot-object, date, today'],
+
+  /**
+   * ### Then the response body at {string} should be a date after {string}
+   * Verify and compare if a specific date from the response body comes after an expected date
+   * The expected date should follow the pattern 'YYYY/MM/DD' (reference: RFC2822)
+   *
+   * @category Date
+   *
+   * @example
+   * Then the response body at "$.createdAt" should be a date after "2020/12/01"
+   * Then the response body at "$.createdAt" should be a date after "2020/12/01 23:30:00"
+   *
+   * @example <caption>Placeholder from datasets</caption>
+   * Then the response body at "$.createdAt" should be a date after {{ my-date }}
+   *
+   * @function DateAfter
+   */
+  ['the response body at {string} should be a date after {string}', then.shouldBeDateAfter, 'Check if a date from the response body is after an expected date', 'api, response, body, jsonpath, dot-object, date'],
+  ['the response body at {string} should be a date after {date}', then.shouldBeDateAfter, 'Check if a date from the response body is after an expected date (placeholder)', 'api, response, body, jsonpath, dot-object, date'],
+
+  /**
+   * ### Then the response body at {string} should be a date after today
+   * Verify and compare if a specific date from the response body comes after the current day
+   *
+   * @category Date
+   *
+   * @example
+   * Then the response body at "$.createdAt" should be a date after today
+   *
+   * @function DateAfterToday
+   */
+  ['the response body at {string} should be a date after today', then.shouldBeDateAfterToday, 'Check if a date from the response body is after the current day', 'api, response, body, jsonpath, dot-object, date, today'],
 
   // Response Dataset
 

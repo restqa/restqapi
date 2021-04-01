@@ -1,6 +1,6 @@
 {
   "name": "@restqa/restqapi",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": false,
   "description": "REST API Functional Test engine based on Gerkin - RestQa",
   "scripts": {

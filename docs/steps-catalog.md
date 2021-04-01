@@ -419,6 +419,11 @@ By adding the cookie into the jar the following request will contains the cookie
     * _Dataset_
         * [~saveHeaderPropertyIntoTheDataset()](#module_Then..saveHeaderPropertyIntoTheDataset)
         * [~saveBodyPropertyIntoTheDataset()](#module_Then..saveBodyPropertyIntoTheDataset)
+    * _Date_
+        * [~DateBefore()](#module_Then..DateBefore)
+        * [~DateBeforeToday()](#module_Then..DateBeforeToday)
+        * [~DateAfter()](#module_Then..DateAfter)
+        * [~DateAfterToday()](#module_Then..DateAfterToday)
     * _Debug_
         * [~printRequest()](#module_Then..printRequest)
         * [~printResponse()](#module_Then..printResponse)
@@ -496,6 +501,54 @@ Given I have the api gateway
 Then add the value "$.user.id" from the response body to the dataset as "userId"
 Given I have the api gateway
   And I have the path "/users/{{userId}}"
+```
+<a name="module_Then..DateBefore"></a>
+### Then the response body at {string} should be a date before {string}
+Verify and compare if a specific date from the response body comes before the expected date
+The expected date should follow the pattern 'YYYY/MM/DD' (reference: RFC2822)
+
+**Category**: Date  
+**Example**  
+```js
+Then the response body at "$.createdAt" should be a date before "2020/12/01"
+Then the response body at "$.createdAt" should be a date before "2020/12/01 23:30:00"
+```
+**Example** *(Placeholder from datasets)*  
+```js
+Then the response body at "$.createdAt" should be a date before {{ my-date }}
+```
+<a name="module_Then..DateBeforeToday"></a>
+### Then the response body at {string} should be a date before today
+Verify and compare if a specific date from the response body is comes before the current day
+
+**Category**: Date  
+**Example**  
+```js
+Then the response body at "$.createdAt" should be a date before today
+```
+<a name="module_Then..DateAfter"></a>
+### Then the response body at {string} should be a date after {string}
+Verify and compare if a specific date from the response body comes after an expected date
+The expected date should follow the pattern 'YYYY/MM/DD' (reference: RFC2822)
+
+**Category**: Date  
+**Example**  
+```js
+Then the response body at "$.createdAt" should be a date after "2020/12/01"
+Then the response body at "$.createdAt" should be a date after "2020/12/01 23:30:00"
+```
+**Example** *(Placeholder from datasets)*  
+```js
+Then the response body at "$.createdAt" should be a date after {{ my-date }}
+```
+<a name="module_Then..DateAfterToday"></a>
+### Then the response body at {string} should be a date after today
+Verify and compare if a specific date from the response body comes after the current day
+
+**Category**: Date  
+**Example**  
+```js
+Then the response body at "$.createdAt" should be a date after today
 ```
 <a name="module_Then..printRequest"></a>
 ### Then I print the request
@@ -641,7 +694,7 @@ Verify a specific property from the response body against a JSON object
 **Category**: JSON Response body  
 **Example**  
 ```js
-Then the response body at "$.person" should be equal to:
+Then the response body at "$.person" should equal:
 """
   {
     "firstName": "John",
@@ -800,7 +853,7 @@ Then the response time is under 100 ms
 ```
 <a name="module_Then..greaterThan"></a>
 ### Then the response body at {string} should be greater than {int}
-Verify if a specific value from the response body is greater than an expected value
+Verify if a specific value from the response body is greater than the expected value
 
 **Category**: Sort Numeric  
 **Example**  
