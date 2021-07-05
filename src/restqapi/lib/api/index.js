@@ -1,9 +1,9 @@
-const got = require("got")
-const {Request} = require("./request")
-const {Response} = require("./response")
+const got = require('got')
+const { Request } = require('./request')
+const { Response } = require('./response')
 
 module.exports = function (options) {
-  const {config} = options
+  const { config } = options
   let error
   const run = async function () {
     try {

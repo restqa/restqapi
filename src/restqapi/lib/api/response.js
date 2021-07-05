@@ -1,10 +1,10 @@
-const dot = require("dot-object")
-const jp = require("jsonpath")
+const dot = require('dot-object')
+const jp = require('jsonpath')
 
 const Response = function (result) {
-  const {request, statusCode, headers, body, timing} = result
+  const { request, statusCode, headers, body, timing } = result
 
-  const isJson = /application\/json/i.test(headers["content-type"] || "")
+  const isJson = /application\/json/i.test(headers['content-type'] || '')
 
   let dotBody = {}
 
@@ -13,7 +13,7 @@ const Response = function (result) {
   }
 
   const findInBody = (property) => {
-    if (property.charAt(0) === "$") {
+    if (property.charAt(0) === '$') {
       // if $ is the first char we will use jsonpath
       return jp.query(body || {}, property, 1)[0]
     } else {
@@ -50,4 +50,4 @@ const Response = function (result) {
   }
 }
 
-module.exports = {Response}
+module.exports = { Response }

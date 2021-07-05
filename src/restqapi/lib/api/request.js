@@ -1,6 +1,6 @@
-const dot = require("dot-object")
-const {URL} = require("url")
-const FormData = require("form-data")
+const dot = require('dot-object')
+const { URL } = require('url')
+const FormData = require('form-data')
 
 const Request = function (baseUrl, insecure, id) {
   const url = new URL(baseUrl)
@@ -36,10 +36,10 @@ const Request = function (baseUrl, insecure, id) {
 
   const getOptions = () => {
     this.options.headers = this.options.headers || {}
-    this.options.headers["x-correlation-id"] = getId()
-    this.options.headers["user-agent"] =
-      "restqa (https://github.com/restqa/restqa)"
-    this.options.responseType = this.options.responseType || "json"
+    this.options.headers['x-correlation-id'] = getId()
+    this.options.headers['user-agent'] =
+      'restqa (https://github.com/restqa/restqa)'
+    this.options.responseType = this.options.responseType || 'json'
 
     if (insecure === true) {
       ignoreSsl()
@@ -51,17 +51,17 @@ const Request = function (baseUrl, insecure, id) {
   const getId = () => {
     if (!id) {
       id = [
-        "test-e2e",
+        'test-e2e',
         this.options.method,
         Math.floor(Math.random() * 1000),
         Date.now()
-      ].join("-")
+      ].join('-')
     }
     return id
   }
 
   const setPath = (path) => {
-    if (this.options.pathname === "/") this.options.pathname = ""
+    if (this.options.pathname === '/') this.options.pathname = ''
     this.options.pathname += path
   }
 
@@ -125,4 +125,4 @@ const Request = function (baseUrl, insecure, id) {
   }
 }
 
-module.exports = {Request}
+module.exports = { Request }
