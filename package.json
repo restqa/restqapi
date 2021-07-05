@@ -7,7 +7,7 @@
     "doc": "jsdoc2md  --partial docs/support/scope.hbs --partial docs/support/header.hbs --files src/restqapi/steps/**/index.js > docs/steps-catalog.md",
     "example": "cucumber-js --require ./example/setup.js --fail-fast ./example/features",
     "test": "jest",
-    "test:watch": "jest --watch --coverage",
+    "test:watch": "jest --watch --runInBand",
     "test:coverage": "jest --coverage",
     "lint:fix": "eslint --fix src/",
     "lint": "eslint src/"
@@ -32,7 +32,7 @@
     "eslint-plugin-jest": "^24.2.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
-    "jest": "^26.6.3",
+    "jest": "^27.0.6",
     "jest-runner-eslint": "^0.10.0",
     "jsdoc-to-markdown": "^5.0.3",
     "nodemon": "^2.0.3"
